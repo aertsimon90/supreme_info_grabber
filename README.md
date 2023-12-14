@@ -11,12 +11,12 @@ git clone http://github.com/aertsimon90/supreme_info_grabber
 # windows
 ```bash
 cd supreme_info_grabber
-start setup.bat
+start setup
 ```
 # linux
 ```bash
 cd supreme_info_grabber
-bash setup.sh
+bash setup
 ```
 # How to main.py to main.exe file (in folder)
 ```bash
