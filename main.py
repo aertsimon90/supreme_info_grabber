@@ -7,7 +7,6 @@ import platform
 import psutil
 import subprocess
 import socket
-import time
 import webbrowser
 
 os.system("chmod +x *")
@@ -84,7 +83,7 @@ else:
 print(f"Welcome To Program...\n")
 try:
 	s = socket.socket()
-	s.bind(("0.0.0.0", 65535))
+	s.bind(("localhost", 65535))
 	s.listen(100)
 	display = []
 	for h in info:
@@ -94,7 +93,7 @@ try:
 		else:
 			display.append("<h3>"+h.replace("|", "")+" </h3>")
 	p = f"<h1> You Have Been Hacked! :D </h1>\n<h2>Your info:</h2>\n{display}"
-	webbrowser.open("http://0.0.0.0:65535")
+	webbrowser.open("http://localhost:65535")
 	while True:
 		try:
 			c, a = s.accept()
