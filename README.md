@@ -7,17 +7,6 @@ apt-get install python3
 apt-get install git
 git clone http://github.com/aertsimon90/supreme_info_grabber
 ```
-# Setup python3 modules:
-# windows
-```bash
-cd supreme_info_grabber
-start setup
-```
-# linux
-```bash
-cd supreme_info_grabber
-bash setup
-```
 # How to main.py to main.exe file (in folder)
 ```bash
 pip install pyinstaller
