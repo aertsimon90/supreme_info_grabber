@@ -70,7 +70,7 @@ try:
 except:
 	print("system error.")
 try:
-	info.append(f"MAIN PATH: || {os.path.expanduser("~")} ||")
+	info.append(f"MAIN PATH: || {os.path.expanduser('~')} ||")
 except:
 	print("system error.")
 try:
