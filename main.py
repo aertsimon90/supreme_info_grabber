@@ -4,6 +4,7 @@ try:
 	subprocess.run(["pip", "install", "requests"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 except:
 	pass
+print("one minute...")
 try:
 	subprocess.run(["pip", "install", "psutil"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 except:
