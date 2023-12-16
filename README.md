@@ -12,3 +12,4 @@ git clone http://github.com/aertsimon90/supreme_info_grabber
 pip install pyinstaller
 python3 -m PyInstaller --onefile main.py
 ```
+[Show Politics](https://github.com/aertsimon90/politics/blob/main/README.md)
