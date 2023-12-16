@@ -1,7 +1,7 @@
 import os, subprocess
 print("please wait...")
 try:
-	subprocess.run("pip install requests", stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+	subprocess.run(["pip", "install", "requests"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 except:
 	pass
 if os.name == "nt":
