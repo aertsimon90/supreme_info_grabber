@@ -18,13 +18,16 @@ else:
 print("please wait and dont stop program...")
 info = []
 try:
-	ip = requests.get(f"https://ifconfig.me/ip").text
-	fwd = requests.get(f"https://ifconfig.me/forwarded").text
-	hops = fwn[fwd.find(",")+1:]
+	ip = requests.get(f"http://ifconfig.me/ip").text
+except:
+	ip = ""
+	print("system error.")
+try:
+	fwd = requests.get(f"http://ifconfig.me/forwarded").text
+	hops = fwd[fwd.find(",")+1:]
 	hops = ", ".join(hops.replace(",", " ").split())
 except:
 	print("system error.")
-	ip = ""
 	hops = ""
 info.append(f"-")
 info.append(f"IP ADDRESS: || {ip} ||")
@@ -42,10 +45,10 @@ except:
 print(f"loading... {random.randint(6, 15)}%")
 opens = []
 for n in range(1, 255):
-	ip = f"192.168.1.{n}"
+	ipp = f"192.168.1.{n}"
 	s = socket.socket()
 	try:
-		s.bind((ip, 65534))
+		s.bind((ipp, 65534))
 		opens.append(ip)
 	except:
 		pass
@@ -53,7 +56,7 @@ for n in range(1, 255):
 info.append(f"OPEN LANS: || {', '.join(opens)} ||")
 print(f"loading... {random.randint(15, 25)}%")
 try:
-	i = requests.get(f"https://ipapi.co/{ip}/json", headers={"User-Agent": "bot"}).json()
+	i = requests.get(f"http://ipapi.co/{ip}/json", headers={"User-Agent": "bot"}).json()
 	try:
 		del i["ip"]
 	except:
