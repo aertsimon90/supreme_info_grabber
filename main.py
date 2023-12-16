@@ -1,11 +1,16 @@
 print("please wait...")
-import os
-os.system("pip install psutil")
-os.system("pip install requests")
+import os, subprocess
+try:
+	subprocess.run("pip install requests", stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+except:
+	pass
+try:
+	subprocess.run("pip install psutil", stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+except:
+	pass
 import requests
 import platform
 import psutil
-import subprocess
 import socket
 import webbrowser
 import random
