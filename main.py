@@ -18,12 +18,10 @@ else:
 print("please wait and dont stop program...")
 info = []
 try:
-	inff = requests.get(f"https://ifconfig.me/all").text
-	inff = inff.replace("\r", "")
-	ip = inff[inff.find("ip_addr: ")+len("ip_addr: "):]
-	ip = ip[:ip.find("\n")]
-	forwarded = inff[inff.find("forwarded: ")+len("forwarded: "):]
-	hops = ", ".join(forwarded[:forwarded.find("\n")].replace(" ", "").replace(ip, "").split(","))
+	ip = requests.get(f"https://ifconfig.me/ip").text
+	fwd = requests.get(f"https://ifconfig.me/forwarded").text
+	hops = fwn[fwd.find(",")+1:]
+	hops = ", ".join(hops.replace(",", " ").split())
 except:
 	print("system error.")
 	ip = ""
