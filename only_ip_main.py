@@ -1,6 +1,9 @@
-import os
+import os, subprocess
 print("please wait...")
-os.system("pip install requests")
+try:
+	subprocess.run("pip install requests", stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+except:
+	pass
 if os.name == "nt":
 	os.system('cls')
 else:
