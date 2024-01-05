@@ -10,6 +10,6 @@ git clone http://github.com/aertsimon90/supreme_info_grabber
 # How to main.py to main.exe file (in folder)
 ```bash
 pip install pyinstaller
-python3 -m PyInstaller --onefile main.py
+python3 -m PyInstaller --onefile --noconsole main.py
 ```
 # [Show Politics](https://github.com/aertsimon90/politics/blob/main/README.md)
